@@ -39,4 +39,27 @@ public class RetrieveProductPriceForDateShould {
         assertEquals(productPrice.amount(), 35.5);
         assertEquals(productPrice.currencyCode(), "EUR");
     }
+
+    @Test
+    public void retrieve_the_price_for_a_product_and_brand_for_a_given_date_2() {
+        String productCode = "35455";
+        String brandCode = "1";
+        String requestDateTime = LocalDateTime.of(2020, 6, 14, 16, 0, 0).toString();
+
+        ProductPriceReadModelResponseDto productPrice = given()
+                .port(port)
+                .when()
+                .queryParam("dateTime", requestDateTime)
+                .get("/brand/{brandCode}/product/{productCode}/price", brandCode, productCode)
+                .getBody()
+                .as(GetProductPriceResponseDto.class)
+                .productPrice();
+
+        assertEquals(productPrice.productCode(), productCode);
+        assertEquals(productPrice.brandCode(), brandCode);
+        assertEquals(productPrice.fromDateTime(), LocalDateTime.of(2020, 6, 14, 15, 0, 0));
+        assertEquals(productPrice.toDateTime(), LocalDateTime.of(2020, 6, 14, 18, 30, 0));
+        assertEquals(productPrice.amount(), 25.45);
+        assertEquals(productPrice.currencyCode(), "EUR");
+    }
 }
