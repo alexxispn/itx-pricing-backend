@@ -6,25 +6,32 @@ public class ProductPrice extends AggregateRoot {
     private final ProductPriceId id;
     private final ProductCode productCode;
     private final BrandCode brandCode;
-    private final FromDateTime fromDateTime;
-    private final ToDateTime toDateTime;
+    private final RangeDateTime rangeDateTime;
     private final Amount amount;
     private final CurrencyCode currencyCode;
+    private final Priority priority;
 
-    public static ProductPrice create(ProductPriceId id, ProductCode productCode, BrandCode brandCode, FromDateTime fromDateTime,
-                                      ToDateTime toDateTime, Amount amount, CurrencyCode currencyCode) {
-        return new ProductPrice(id, productCode, brandCode, fromDateTime, toDateTime, amount, currencyCode);
+    public static ProductPrice create(
+            ProductPriceId id,
+            ProductCode productCode,
+            BrandCode brandCode,
+            RangeDateTime rangeDateTime,
+            Amount amount,
+            CurrencyCode currencyCode,
+            Priority priority
+    ) {
+        return new ProductPrice(id, productCode, brandCode, rangeDateTime, amount, currencyCode, priority);
     }
 
-    private ProductPrice(ProductPriceId id, ProductCode productCode, BrandCode brandCode, FromDateTime fromDateTime, ToDateTime toDateTime,
-                         Amount amount, CurrencyCode currencyCode) {
+    private ProductPrice(ProductPriceId id, ProductCode productCode, BrandCode brandCode, RangeDateTime rangeDateTime,
+                         Amount amount, CurrencyCode currencyCode, Priority priority) {
         this.id = id;
         this.productCode = productCode;
         this.brandCode = brandCode;
-        this.fromDateTime = fromDateTime;
-        this.toDateTime = toDateTime;
+        this.rangeDateTime = rangeDateTime;
         this.amount = amount;
         this.currencyCode = currencyCode;
+        this.priority = priority;
     }
 
     public ProductPricePrimitives toPrimitives() {
@@ -32,10 +39,11 @@ public class ProductPrice extends AggregateRoot {
                 id.value(),
                 productCode.value(),
                 brandCode.value(),
-                fromDateTime.value(),
-                toDateTime.value(),
+                rangeDateTime.fromDateTime(),
+                rangeDateTime.toDateTime(),
                 amount.value(),
-                currencyCode.value()
+                currencyCode.value(),
+                priority.value()
         );
     }
 }

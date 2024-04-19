@@ -7,5 +7,6 @@ public record ProductPricePrimitives(
         String fromDateTime,
         String toDateTime,
         double amount,
-        String currencyCode
+        String currencyCode,
+        int priority
 ){}
