@@ -7,8 +7,7 @@ public class ProductPrice extends AggregateRoot {
     private final ProductCode productCode;
     private final BrandCode brandCode;
     private final RangeDateTime rangeDateTime;
-    private final Amount amount;
-    private final CurrencyCode currencyCode;
+    private final Price price;
     private final Priority priority;
 
     public static ProductPrice create(
@@ -16,21 +15,19 @@ public class ProductPrice extends AggregateRoot {
             ProductCode productCode,
             BrandCode brandCode,
             RangeDateTime rangeDateTime,
-            Amount amount,
-            CurrencyCode currencyCode,
+            Price price,
             Priority priority
     ) {
-        return new ProductPrice(id, productCode, brandCode, rangeDateTime, amount, currencyCode, priority);
+        return new ProductPrice(id, productCode, brandCode, rangeDateTime, price, priority);
     }
 
     private ProductPrice(ProductPriceId id, ProductCode productCode, BrandCode brandCode, RangeDateTime rangeDateTime,
-                         Amount amount, CurrencyCode currencyCode, Priority priority) {
+                         Price price, Priority priority) {
         this.id = id;
         this.productCode = productCode;
         this.brandCode = brandCode;
         this.rangeDateTime = rangeDateTime;
-        this.amount = amount;
-        this.currencyCode = currencyCode;
+        this.price = price;
         this.priority = priority;
     }
 
@@ -41,8 +38,8 @@ public class ProductPrice extends AggregateRoot {
                 brandCode.value(),
                 rangeDateTime.fromDateTime(),
                 rangeDateTime.toDateTime(),
-                amount.value(),
-                currencyCode.value(),
+                price.value(),
+                price.currency(),
                 priority.value()
         );
     }

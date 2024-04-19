@@ -19,8 +19,7 @@ public class FindProductPriceFromDate extends UseCase {
                 new ProductCode(productCode),
                 new BrandCode(brandCode),
                 new RangeDateTime(LocalDateTime.of(2020, 6, 14, 0, 0, 0), LocalDateTime.of(2020, 12, 31, 23, 59, 59)),
-                new Amount(35.5),
-                new CurrencyCode("EUR"),
+                new Price(35.50, "EUR"),
                 new Priority(0)
         );
     }
