@@ -47,4 +47,16 @@ public class FindProductPriceFromDateShould {
 
         assertEquals(35.50, productPrice.amount());
     }
+
+    @Test
+    public void not_find_a_product_price() {
+        String productCode = "productCode";
+        String brandCode = "brandCode";
+        LocalDateTime date = LocalDateTime.of(2020, 6, 14, 0, 0, 0);
+
+        ProductPriceReadModel productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
+
+        assertEquals(null, productPrice);
+    }
+
 }
