@@ -16,6 +16,23 @@ public class InMemoryProductPriceRepository implements ProductPriceRepository {
 
     public InMemoryProductPriceRepository() {
         productPrices = new ArrayList<>();
+        seeder();
+    }
+
+    @Override
+    public ProductPrice find(String productCode, String brandCode, String date) {
+        return productPrices.stream()
+                .filter(productPrice -> productPrice.matches(productCode, brandCode, date))
+                .min((p1, p2) -> p2.priority() - p1.priority())
+                .orElse(null);
+    }
+
+    @Override
+    public void save(ProductPrice productPrice) {
+        productPrices.add(productPrice);
+    }
+
+    private void seeder() {
         productPrices.add(ProductPrice.create(
                 new ProductPriceId(UUID.randomUUID().toString()),
                 new ProductCode("35455"),
@@ -48,20 +65,6 @@ public class InMemoryProductPriceRepository implements ProductPriceRepository {
                 new Price(38.95, "EUR"),
                 new Priority(1)
         ));
-    }
-
-    @Override
-    public ProductPrice find(String productCode, String brandCode, String date) {
-        return productPrices.stream()
-                .filter(productPrice -> productPrice.matches(productCode, brandCode, date))
-                .sorted((p1, p2) -> p2.priority() - p1.priority())
-                .findFirst()
-                .orElse(null);
-    }
-
-    @Override
-    public void save(ProductPrice productPrice) {
-        productPrices.add(productPrice);
     }
 }
 
