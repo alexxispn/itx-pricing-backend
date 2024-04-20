@@ -2,6 +2,8 @@ package com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain;
 
 import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.AggregateRoot;
 
+import java.time.LocalDateTime;
+
 public class ProductPrice extends AggregateRoot {
     private final ProductPriceId id;
     private final ProductCode productCode;
@@ -29,6 +31,17 @@ public class ProductPrice extends AggregateRoot {
         this.rangeDateTime = rangeDateTime;
         this.price = price;
         this.priority = priority;
+    }
+
+    public static ProductPrice fromPrimitives(ProductPricePrimitives primitives) {
+        return new ProductPrice(
+                new ProductPriceId(primitives.id()),
+                new ProductCode(primitives.productCode()),
+                new BrandCode(primitives.brandCode()),
+                new RangeDateTime(LocalDateTime.parse(primitives.fromDateTime()), LocalDateTime.parse(primitives.toDateTime())),
+                new Price(primitives.amount(), primitives.currencyCode()),
+                new Priority(primitives.priority())
+        );
     }
 
     public ProductPricePrimitives toPrimitives() {
