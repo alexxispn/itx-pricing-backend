@@ -59,4 +59,32 @@ public class FindProductPriceFromDateShould {
         assertEquals(null, productPrice);
     }
 
+    @Test
+    public void find_product_price_with_the_higher_priority() {
+        String productCode = "productCode";
+        String brandCode = "brandCode";
+        LocalDateTime date = LocalDateTime.of(2020, 6, 14, 0, 0, 0);
+
+        productPriceRepository.save(ProductPrice.create(
+                new ProductPriceId(UUID.randomUUID().toString()),
+                new ProductCode(productCode),
+                new BrandCode(brandCode),
+                new RangeDateTime(LocalDateTime.of(2020, 6, 14, 0, 0, 0), LocalDateTime.of(2020, 12, 31, 23, 59, 59)),
+                new Price(35.50, "EUR"),
+                new Priority(0)
+        ));
+
+        productPriceRepository.save(ProductPrice.create(
+                new ProductPriceId(UUID.randomUUID().toString()),
+                new ProductCode(productCode),
+                new BrandCode(brandCode),
+                new RangeDateTime(LocalDateTime.of(2020, 6, 14, 0, 0, 0), LocalDateTime.of(2020, 12, 31, 23, 59, 59)),
+                new Price(25.45, "EUR"),
+                new Priority(1)
+        ));
+
+        ProductPriceReadModel productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
+
+        assertEquals(25.45, productPrice.amount());
+    }
 }
