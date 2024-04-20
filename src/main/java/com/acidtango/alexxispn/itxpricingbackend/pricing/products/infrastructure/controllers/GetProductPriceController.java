@@ -2,6 +2,7 @@ package com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructur
 
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.application.FindProductPriceFromDate;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.controllers.dtos.GetProductPriceResponseDto;
+import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.ProductPriceReadModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,15 @@ public class GetProductPriceController {
             @PathVariable String productCode,
             @RequestParam LocalDateTime dateTime
     ) {
-        return GetProductPriceResponseDto.fromDomain(
-                findProductPriceFromDate.execute(brandCode, productCode, dateTime)
+        ProductPriceReadModel productPriceReadModel = findProductPriceFromDate.execute(brandCode, productCode, dateTime);
+        return new GetProductPriceResponseDto(
+                productPriceReadModel.id(),
+                productPriceReadModel.productCode(),
+                productPriceReadModel.brandCode(),
+                productPriceReadModel.fromDateTime(),
+                productPriceReadModel.toDateTime(),
+                productPriceReadModel.amount(),
+                productPriceReadModel.currencyCode()
         );
     }
 }

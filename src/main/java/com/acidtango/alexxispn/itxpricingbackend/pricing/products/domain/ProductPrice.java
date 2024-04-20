@@ -43,5 +43,13 @@ public class ProductPrice extends AggregateRoot {
                 priority.value()
         );
     }
+
+    public boolean matches(String productCode, String brandCode, String date) {
+        return this.productCode.value().equals(productCode) && this.brandCode.value().equals(brandCode) && this.rangeDateTime.contains(date);
+    }
+
+    public int priority() {
+        return priority.value();
+    }
 }
 

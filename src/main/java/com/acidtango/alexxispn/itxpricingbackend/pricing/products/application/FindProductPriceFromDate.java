@@ -1,16 +1,19 @@
 package com.acidtango.alexxispn.itxpricingbackend.pricing.products.application;
 
-import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.*;
+import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.ProductPriceReadModel;
+import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.ProductPriceReadModelRepository;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.application.UseCase;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Service
 public class FindProductPriceFromDate extends UseCase {
 
-    public FindProductPriceFromDate() {
+    private final ProductPriceReadModelRepository repository;
+
+    public FindProductPriceFromDate(ProductPriceReadModelRepository repository) {
+        this.repository = repository;
     }
 
     public ProductPrice execute(String brandCode, String productCode, LocalDateTime dateTime) {
