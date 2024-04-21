@@ -22,4 +22,15 @@ public class H2ProductPriceRepositoryShould {
     public void invoke_seeder_on_initialization() {
         verify(jpaProductPriceRepository, times(4)).save(any(ProductPriceEntity.class));
     }
+
+    @Test
+    public void find_product_prices() {
+        String productCode = "productCode";
+        String brandCode = "brandCode";
+        Instant date = Instant.parse("2024-01-01T00:00:00Z");
+
+        h2ProductPriceRepository.find(productCode, brandCode, date);
+
+        verify(jpaProductPriceRepository, times(1)).findByProductCodeAndBrandCodeAndStartDateLessThanEqualAndEndDateGreaterThanEqual(productCode, brandCode, date, date);
+    }
 }
