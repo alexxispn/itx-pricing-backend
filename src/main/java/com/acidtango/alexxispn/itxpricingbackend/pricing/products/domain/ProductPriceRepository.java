@@ -5,8 +5,6 @@ import java.util.List;
 
 public interface ProductPriceRepository {
     List<ProductPrice> find(String productCode, String brandCode, Instant date);
-
-    void save(ProductPrice productPrice);
 }
 
 

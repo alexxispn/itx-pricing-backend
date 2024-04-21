@@ -24,7 +24,6 @@ public class InMemoryProductPriceRepository implements ProductPriceRepository {
                 .toList();
     }
 
-    @Override
     public void save(ProductPrice productPrice) {
         productPrices.add(productPrice);
     }

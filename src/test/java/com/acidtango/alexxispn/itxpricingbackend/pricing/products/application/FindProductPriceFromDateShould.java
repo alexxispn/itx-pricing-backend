@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FindProductPriceFromDateShould {
     private FindProductPriceFromDate findProductPriceFromDate;
 
-    private ProductPriceRepository productPriceRepository;
+    private InMemoryProductPriceRepository productPriceRepository;
 
 
     @BeforeEach
