@@ -1,7 +1,10 @@
 package com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain;
 
+import java.time.Instant;
+import java.util.List;
+
 public interface ProductPriceRepository {
-    ProductPrice find(String productCode, String brandCode, String date);
+    List<ProductPrice> find(String productCode, String brandCode, Instant date);
 
     void save(ProductPrice productPrice);
 }

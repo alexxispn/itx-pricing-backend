@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +21,7 @@ public class RetrieveProductPriceForDateShould {
     public void retrieve_the_price_for_a_product_and_brand_for_a_given_date() {
         String productCode = "35455";
         String brandCode = "1";
-        String requestDateTime = LocalDateTime.of(2020, 6, 14, 10, 0, 0).toString();
+        String requestDateTime = Instant.parse("2020-06-14T10:00:00Z").toString();
 
         ProductPriceReadModelResponseDto productPrice = given()
                 .port(port)
@@ -34,8 +34,8 @@ public class RetrieveProductPriceForDateShould {
 
         assertEquals(productPrice.productCode(), productCode);
         assertEquals(productPrice.brandCode(), brandCode);
-        assertEquals(productPrice.fromDateTime(), LocalDateTime.of(2020, 6, 14, 0, 0, 0));
-        assertEquals(productPrice.toDateTime(), LocalDateTime.of(2020, 12, 31, 23, 59, 59));
+        assertEquals(productPrice.fromDateTime(), Instant.parse("2020-06-14T00:00:00Z"));
+        assertEquals(productPrice.toDateTime(), Instant.parse("2020-12-31T23:59:59Z"));
         assertEquals(productPrice.amount(), 35.5);
         assertEquals(productPrice.currencyCode(), "EUR");
     }
@@ -44,7 +44,7 @@ public class RetrieveProductPriceForDateShould {
     public void retrieve_the_price_for_a_product_and_brand_for_a_given_date_2() {
         String productCode = "35455";
         String brandCode = "1";
-        String requestDateTime = LocalDateTime.of(2020, 6, 14, 16, 0, 0).toString();
+        String requestDateTime = Instant.parse("2020-06-14T16:00:00Z").toString();
 
         ProductPriceReadModelResponseDto productPrice = given()
                 .port(port)
@@ -57,8 +57,8 @@ public class RetrieveProductPriceForDateShould {
 
         assertEquals(productPrice.productCode(), productCode);
         assertEquals(productPrice.brandCode(), brandCode);
-        assertEquals(productPrice.fromDateTime(), LocalDateTime.of(2020, 6, 14, 15, 0, 0));
-        assertEquals(productPrice.toDateTime(), LocalDateTime.of(2020, 6, 14, 18, 30, 0));
+        assertEquals(productPrice.fromDateTime(), Instant.parse("2020-06-14T15:00:00Z"));
+        assertEquals(productPrice.toDateTime(), Instant.parse("2020-06-14T18:30:00Z"));
         assertEquals(productPrice.amount(), 25.45);
         assertEquals(productPrice.currencyCode(), "EUR");
     }
@@ -67,7 +67,7 @@ public class RetrieveProductPriceForDateShould {
     public void retrieve_the_price_for_a_product_and_brand_for_a_given_date_3() {
         String productCode = "35455";
         String brandCode = "1";
-        String requestDateTime = LocalDateTime.of(2020, 6, 14, 21, 0, 0).toString();
+        String requestDateTime = Instant.parse("2020-06-14T21:00:00Z").toString();
 
         ProductPriceReadModelResponseDto productPrice = given()
                 .port(port)
@@ -80,8 +80,8 @@ public class RetrieveProductPriceForDateShould {
 
         assertEquals(productPrice.productCode(), productCode);
         assertEquals(productPrice.brandCode(), brandCode);
-        assertEquals(productPrice.fromDateTime(), LocalDateTime.of(2020, 6, 14, 0, 0, 0));
-        assertEquals(productPrice.toDateTime(), LocalDateTime.of(2020, 12, 31, 23, 59, 59));
+        assertEquals(productPrice.fromDateTime(), Instant.parse("2020-06-14T00:00:00Z"));
+        assertEquals(productPrice.toDateTime(), Instant.parse("2020-12-31T23:59:59Z"));
         assertEquals(productPrice.amount(), 35.5);
         assertEquals(productPrice.currencyCode(), "EUR");
     }
@@ -90,7 +90,7 @@ public class RetrieveProductPriceForDateShould {
     public void retrieve_the_price_for_a_product_and_brand_for_a_given_date_4() {
         String productCode = "35455";
         String brandCode = "1";
-        String requestDateTime = LocalDateTime.of(2020, 6, 15, 10, 0, 0).toString();
+        String requestDateTime = Instant.parse("2020-06-15T10:00:00Z").toString();
 
         ProductPriceReadModelResponseDto productPrice = given()
                 .port(port)
@@ -103,8 +103,8 @@ public class RetrieveProductPriceForDateShould {
 
         assertEquals(productPrice.productCode(), productCode);
         assertEquals(productPrice.brandCode(), brandCode);
-        assertEquals(productPrice.fromDateTime(), LocalDateTime.of(2020, 6, 15, 0, 0, 0));
-        assertEquals(productPrice.toDateTime(), LocalDateTime.of(2020, 6, 15, 11, 0, 0));
+        assertEquals(productPrice.fromDateTime(), Instant.parse("2020-06-15T00:00:00Z"));
+        assertEquals(productPrice.toDateTime(), Instant.parse("2020-06-15T11:00:00Z"));
         assertEquals(productPrice.amount(), 30.5);
         assertEquals(productPrice.currencyCode(), "EUR");
     }
@@ -114,7 +114,7 @@ public class RetrieveProductPriceForDateShould {
             () {
         String productCode = "35455";
         String brandCode = "1";
-        String requestDateTime = LocalDateTime.of(2020, 6, 16, 21, 0, 0).toString();
+        String requestDateTime = Instant.parse("2020-06-16T21:00:00Z").toString();
 
         ProductPriceReadModelResponseDto productPrice = given()
                 .port(port)
@@ -127,8 +127,8 @@ public class RetrieveProductPriceForDateShould {
 
         assertEquals(productPrice.productCode(), productCode);
         assertEquals(productPrice.brandCode(), brandCode);
-        assertEquals(productPrice.fromDateTime(), LocalDateTime.of(2020, 6, 15, 16, 0, 0));
-        assertEquals(productPrice.toDateTime(), LocalDateTime.of(2020, 12, 31, 23, 59, 59));
+        assertEquals(productPrice.fromDateTime(), Instant.parse("2020-06-15T16:00:00Z"));
+        assertEquals(productPrice.toDateTime(), Instant.parse("2020-12-31T23:59:59Z"));
         assertEquals(productPrice.amount(), 38.95);
         assertEquals(productPrice.currencyCode(), "EUR");
     }

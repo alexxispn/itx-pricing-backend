@@ -2,10 +2,10 @@ package com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructur
 
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.ProductPrice;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public record GetProductPriceResponseDto(
-        String id, String productCode, String brandCode, String fromDateTime, String toDateTime, double amount,
+        String id, String productCode, String brandCode, Instant fromDateTime, Instant toDateTime, double amount,
         String currencyCode
 ) {
     public static GetProductPriceResponseDto fromDomain(ProductPrice productPrice) {
@@ -21,13 +21,13 @@ public record GetProductPriceResponseDto(
         );
     }
 
-    public ProductPriceReadModelResponseDto productPrice() {
-        return new ProductPriceReadModelResponseDto(
+    public ProductPriceResponseDto productPrice() {
+        return new ProductPriceResponseDto(
                 id,
                 productCode,
                 brandCode,
-                LocalDateTime.parse(fromDateTime),
-                LocalDateTime.parse(toDateTime),
+                fromDateTime,
+                toDateTime,
                 amount,
                 currencyCode
         );

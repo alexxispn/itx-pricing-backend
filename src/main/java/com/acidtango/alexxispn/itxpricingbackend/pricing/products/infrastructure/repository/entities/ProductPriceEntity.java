@@ -5,6 +5,8 @@ import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.Product
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+import java.time.Instant;
+
 @Entity
 public class ProductPriceEntity {
     @Id
@@ -18,23 +20,24 @@ public class ProductPriceEntity {
 
     private String currency;
 
-    private String startDate;
+    private Instant startDate;
 
-    private String endDate;
+    private Instant endDate;
 
     private int priority;
 
-    public ProductPrice toDomain() {
+    public static ProductPrice toDomain(ProductPriceEntity entity) {
         ProductPricePrimitives primitives = new ProductPricePrimitives(
-                id,
-                productCode,
-                brandCode,
-                startDate,
-                endDate,
-                price,
-                currency,
-                priority
+                entity.id,
+                entity.productCode,
+                entity.brandCode,
+                entity.startDate,
+                entity.endDate,
+                entity.price,
+                entity.currency,
+                entity.priority
         );
+
         return ProductPrice.fromPrimitives(primitives);
     }
 

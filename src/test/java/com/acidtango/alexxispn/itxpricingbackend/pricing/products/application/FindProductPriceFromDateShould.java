@@ -1,14 +1,13 @@
 package com.acidtango.alexxispn.itxpricingbackend.pricing.products.application;
 
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.*;
-import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.InMemoryProductPriceReadModelRepository;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.InMemoryProductPriceRepository;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.ProductPriceReadModel;
-import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.ProductPriceReadModelRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +31,7 @@ public class FindProductPriceFromDateShould {
     public void find_a_product_price() {
         String productCode = "productCode";
         String brandCode = "brandCode";
-        LocalDateTime date = LocalDateTime.of(2020, 6, 14, 0, 0, 0);
+        Instant date = Instant.parse("2020-06-14T00:00:00Z");
 
         productPriceRepository.save(ProductPrice.create(
                 new ProductPriceId(UUID.randomUUID().toString()),
@@ -52,7 +51,7 @@ public class FindProductPriceFromDateShould {
     public void not_find_a_product_price() {
         String productCode = "productCode";
         String brandCode = "brandCode";
-        LocalDateTime date = LocalDateTime.of(2020, 6, 14, 0, 0, 0);
+        Instant date = Instant.parse("2020-06-14T00:00:00Z");
 
         ProductPriceReadModel productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
 
@@ -63,7 +62,7 @@ public class FindProductPriceFromDateShould {
     public void find_product_price_with_the_higher_priority() {
         String productCode = "productCode";
         String brandCode = "brandCode";
-        LocalDateTime date = LocalDateTime.of(2020, 6, 14, 0, 0, 0);
+        Instant date = Instant.parse("2020-06-14T00:00:00Z");
 
         productPriceRepository.save(ProductPrice.create(
                 new ProductPriceId(UUID.randomUUID().toString()),
@@ -78,7 +77,7 @@ public class FindProductPriceFromDateShould {
                 new ProductPriceId(UUID.randomUUID().toString()),
                 new ProductCode(productCode),
                 new BrandCode(brandCode),
-                new RangeDateTime(LocalDateTime.of(2020, 6, 14, 0, 0, 0), LocalDateTime.of(2020, 12, 31, 23, 59, 59)),
+                new RangeDateTime(Instant.parse("2020-06-14T00:00:00Z"), Instant.parse("2020-12-31T23:59:59Z")),
                 new Price(25.45, "EUR"),
                 new Priority(1)
         ));

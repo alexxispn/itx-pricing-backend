@@ -1,29 +1,25 @@
 package com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public class RangeDateTime {
-    private final LocalDateTime fromDateTime;
-    private final LocalDateTime toDateTime;
+    private final Instant fromDateTime;
+    private final Instant toDateTime;
 
-    public RangeDateTime(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+    public RangeDateTime(Instant fromDateTime, Instant toDateTime) {
         this.fromDateTime = fromDateTime;
         this.toDateTime = toDateTime;
     }
 
-    public String fromDateTime() {
-        return fromDateTime.toString();
+    public Instant fromDateTime() {
+        return fromDateTime;
     }
 
-    public String toDateTime() {
-        return toDateTime.toString();
+    public Instant toDateTime() {
+        return toDateTime;
     }
 
-    public boolean contains(String date) {
-        return fromDateTime.isBefore(LocalDateTime.parse(date)) && toDateTime.isAfter(LocalDateTime.parse(date)) || fromDateTime.isEqual(LocalDateTime.parse(date)) || toDateTime.isEqual(LocalDateTime.parse(date));
-    }
-
-    public boolean contains(LocalDateTime date) {
-        return fromDateTime.isBefore(date) && toDateTime.isAfter(date) || fromDateTime.isEqual(date) || toDateTime.isEqual(date);
+    public boolean contains(Instant date) {
+        return fromDateTime.compareTo(date) <= 0 && toDateTime.compareTo(date) >= 0;
     }
 }

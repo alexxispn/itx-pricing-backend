@@ -2,7 +2,7 @@ package com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain;
 
 import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.AggregateRoot;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public class ProductPrice extends AggregateRoot {
     private final ProductPriceId id;
@@ -38,7 +38,7 @@ public class ProductPrice extends AggregateRoot {
                 new ProductPriceId(primitives.id()),
                 new ProductCode(primitives.productCode()),
                 new BrandCode(primitives.brandCode()),
-                new RangeDateTime(LocalDateTime.parse(primitives.fromDateTime()), LocalDateTime.parse(primitives.toDateTime())),
+                new RangeDateTime(primitives.fromDateTime(), primitives.toDateTime()),
                 new Price(primitives.amount(), primitives.currencyCode()),
                 new Priority(primitives.priority())
         );
@@ -57,7 +57,7 @@ public class ProductPrice extends AggregateRoot {
         );
     }
 
-    public boolean matches(String productCode, String brandCode, String date) {
+    public boolean matches(String productCode, String brandCode, Instant date) {
         return this.productCode.value().equals(productCode) && this.brandCode.value().equals(brandCode) && this.rangeDateTime.contains(date);
     }
 

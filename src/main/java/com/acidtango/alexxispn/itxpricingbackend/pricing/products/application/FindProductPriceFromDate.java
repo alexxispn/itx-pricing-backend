@@ -5,7 +5,9 @@ import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure
 import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.application.UseCase;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FindProductPriceFromDate extends UseCase {
