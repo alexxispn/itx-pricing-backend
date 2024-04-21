@@ -20,7 +20,7 @@ public class RetrieveProductPriceForDateShould {
     public void retrieve_the_price_for_a_product_and_brand_for_a_given_date() {
         String productCode = "35455";
         String brandCode = "1";
-        String requestDateTime = Instant.parse("2020-06-14T10:00:00Z").toString();
+        Instant requestDateTime = Instant.parse("2020-06-14T10:00:00Z");
 
         ProductPriceResponseDto productPrice = given()
                 .port(port)
@@ -42,7 +42,7 @@ public class RetrieveProductPriceForDateShould {
     public void retrieve_the_price_for_a_product_and_brand_for_a_given_date_2() {
         String productCode = "35455";
         String brandCode = "1";
-        String requestDateTime = Instant.parse("2020-06-14T16:00:00Z").toString();
+        Instant requestDateTime = Instant.parse("2020-06-14T16:00:00Z");
 
         ProductPriceResponseDto productPrice = given()
                 .port(port)
@@ -64,7 +64,7 @@ public class RetrieveProductPriceForDateShould {
     public void retrieve_the_price_for_a_product_and_brand_for_a_given_date_3() {
         String productCode = "35455";
         String brandCode = "1";
-        String requestDateTime = Instant.parse("2020-06-14T21:00:00Z").toString();
+        Instant requestDateTime = Instant.parse("2020-06-14T21:00:00Z");
 
         ProductPriceResponseDto productPrice = given()
                 .port(port)
@@ -86,7 +86,7 @@ public class RetrieveProductPriceForDateShould {
     public void retrieve_the_price_for_a_product_and_brand_for_a_given_date_4() {
         String productCode = "35455";
         String brandCode = "1";
-        String requestDateTime = Instant.parse("2020-06-15T10:00:00Z").toString();
+        Instant requestDateTime = Instant.parse("2020-06-15T10:00:00Z");
 
         ProductPriceResponseDto productPrice = given()
                 .port(port)
@@ -109,7 +109,7 @@ public class RetrieveProductPriceForDateShould {
             () {
         String productCode = "35455";
         String brandCode = "1";
-        String requestDateTime = Instant.parse("2020-06-16T21:00:00Z").toString();
+        Instant requestDateTime = Instant.parse("2020-06-16T21:00:00Z");
 
         ProductPriceResponseDto productPrice = given()
                 .port(port)
