@@ -1,6 +1,5 @@
 package com.acidtango.alexxispn.itxpricingbackend.pricing;
 
-import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.controllers.dtos.GetProductPriceResponseDto;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.controllers.dtos.ProductPriceResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,8 +28,7 @@ public class RetrieveProductPriceForDateShould {
                 .queryParam("dateTime", requestDateTime)
                 .get("/brand/{brandCode}/product/{productCode}/price", brandCode, productCode)
                 .getBody()
-                .as(GetProductPriceResponseDto.class)
-                .productPrice();
+                .as(ProductPriceResponseDto.class);
 
         assertEquals(productPrice.productCode(), productCode);
         assertEquals(productPrice.brandCode(), brandCode);
@@ -52,8 +50,7 @@ public class RetrieveProductPriceForDateShould {
                 .queryParam("dateTime", requestDateTime)
                 .get("/brand/{brandCode}/product/{productCode}/price", brandCode, productCode)
                 .getBody()
-                .as(GetProductPriceResponseDto.class)
-                .productPrice();
+                .as(ProductPriceResponseDto.class);
 
         assertEquals(productPrice.productCode(), productCode);
         assertEquals(productPrice.brandCode(), brandCode);
@@ -75,8 +72,7 @@ public class RetrieveProductPriceForDateShould {
                 .queryParam("dateTime", requestDateTime)
                 .get("/brand/{brandCode}/product/{productCode}/price", brandCode, productCode)
                 .getBody()
-                .as(GetProductPriceResponseDto.class)
-                .productPrice();
+                .as(ProductPriceResponseDto.class);
 
         assertEquals(productPrice.productCode(), productCode);
         assertEquals(productPrice.brandCode(), brandCode);
@@ -98,8 +94,7 @@ public class RetrieveProductPriceForDateShould {
                 .queryParam("dateTime", requestDateTime)
                 .get("/brand/{brandCode}/product/{productCode}/price", brandCode, productCode)
                 .getBody()
-                .as(GetProductPriceResponseDto.class)
-                .productPrice();
+                .as(ProductPriceResponseDto.class);
 
         assertEquals(productPrice.productCode(), productCode);
         assertEquals(productPrice.brandCode(), brandCode);
@@ -122,8 +117,7 @@ public class RetrieveProductPriceForDateShould {
                 .queryParam("dateTime", requestDateTime)
                 .get("/brand/{brandCode}/product/{productCode}/price", brandCode, productCode)
                 .getBody()
-                .as(GetProductPriceResponseDto.class)
-                .productPrice();
+                .as(ProductPriceResponseDto.class);
 
         assertEquals(productPrice.productCode(), productCode);
         assertEquals(productPrice.brandCode(), brandCode);
