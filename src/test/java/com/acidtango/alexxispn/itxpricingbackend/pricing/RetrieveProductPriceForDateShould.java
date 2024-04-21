@@ -1,7 +1,7 @@
 package com.acidtango.alexxispn.itxpricingbackend.pricing;
 
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.controllers.dtos.GetProductPriceResponseDto;
-import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.controllers.dtos.ProductPriceReadModelResponseDto;
+import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.controllers.dtos.ProductPriceResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -23,7 +23,7 @@ public class RetrieveProductPriceForDateShould {
         String brandCode = "1";
         String requestDateTime = Instant.parse("2020-06-14T10:00:00Z").toString();
 
-        ProductPriceReadModelResponseDto productPrice = given()
+        ProductPriceResponseDto productPrice = given()
                 .port(port)
                 .when()
                 .queryParam("dateTime", requestDateTime)
@@ -46,7 +46,7 @@ public class RetrieveProductPriceForDateShould {
         String brandCode = "1";
         String requestDateTime = Instant.parse("2020-06-14T16:00:00Z").toString();
 
-        ProductPriceReadModelResponseDto productPrice = given()
+        ProductPriceResponseDto productPrice = given()
                 .port(port)
                 .when()
                 .queryParam("dateTime", requestDateTime)
@@ -69,7 +69,7 @@ public class RetrieveProductPriceForDateShould {
         String brandCode = "1";
         String requestDateTime = Instant.parse("2020-06-14T21:00:00Z").toString();
 
-        ProductPriceReadModelResponseDto productPrice = given()
+        ProductPriceResponseDto productPrice = given()
                 .port(port)
                 .when()
                 .queryParam("dateTime", requestDateTime)
@@ -92,7 +92,7 @@ public class RetrieveProductPriceForDateShould {
         String brandCode = "1";
         String requestDateTime = Instant.parse("2020-06-15T10:00:00Z").toString();
 
-        ProductPriceReadModelResponseDto productPrice = given()
+        ProductPriceResponseDto productPrice = given()
                 .port(port)
                 .when()
                 .queryParam("dateTime", requestDateTime)
@@ -116,7 +116,7 @@ public class RetrieveProductPriceForDateShould {
         String brandCode = "1";
         String requestDateTime = Instant.parse("2020-06-16T21:00:00Z").toString();
 
-        ProductPriceReadModelResponseDto productPrice = given()
+        ProductPriceResponseDto productPrice = given()
                 .port(port)
                 .when()
                 .queryParam("dateTime", requestDateTime)

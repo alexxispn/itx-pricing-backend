@@ -5,13 +5,12 @@ import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.Product
 import java.time.Instant;
 
 public record GetProductPriceResponseDto(
-        String id, String productCode, String brandCode, Instant fromDateTime, Instant toDateTime, double amount,
+        String productCode, String brandCode, Instant fromDateTime, Instant toDateTime, double amount,
         String currencyCode
 ) {
     public static GetProductPriceResponseDto fromDomain(ProductPrice productPrice) {
         var primitives = productPrice.toPrimitives();
         return new GetProductPriceResponseDto(
-                primitives.id(),
                 primitives.productCode(),
                 primitives.brandCode(),
                 primitives.fromDateTime(),
@@ -23,7 +22,6 @@ public record GetProductPriceResponseDto(
 
     public ProductPriceResponseDto productPrice() {
         return new ProductPriceResponseDto(
-                id,
                 productCode,
                 brandCode,
                 fromDateTime,

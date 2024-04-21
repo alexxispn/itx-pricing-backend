@@ -1,8 +1,8 @@
 package com.acidtango.alexxispn.itxpricingbackend.pricing.products.application;
 
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.*;
+import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.controllers.dtos.ProductPriceResponseDto;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.InMemoryProductPriceRepository;
-import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.ProductPriceReadModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,18 +13,15 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FindProductPriceFromDateShould {
-
     private FindProductPriceFromDate findProductPriceFromDate;
 
     private ProductPriceRepository productPriceRepository;
 
-    private ProductPriceReadModelRepository productPriceReadModelRepository;
 
     @BeforeEach
     public void setUp() {
         productPriceRepository = new InMemoryProductPriceRepository();
-        productPriceReadModelRepository = new InMemoryProductPriceReadModelRepository(productPriceRepository);
-        findProductPriceFromDate = new FindProductPriceFromDate(productPriceReadModelRepository);
+        findProductPriceFromDate = new FindProductPriceFromDate(productPriceRepository);
     }
 
     @Test
@@ -37,14 +34,14 @@ public class FindProductPriceFromDateShould {
                 new ProductPriceId(UUID.randomUUID().toString()),
                 new ProductCode(productCode),
                 new BrandCode(brandCode),
-                new RangeDateTime(LocalDateTime.of(2020, 6, 14, 0, 0, 0), LocalDateTime.of(2020, 12, 31, 23, 59, 59)),
+                new RangeDateTime(Instant.parse("2020-06-14T00:00:00Z"), Instant.parse("2020-12-31T23:59:59Z")),
                 new Price(35.50, "EUR"),
                 new Priority(0)
         ));
 
-        ProductPriceReadModel productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
+        Optional<ProductPriceResponseDto> productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
 
-        assertEquals(35.50, productPrice.amount());
+        assertEquals(35.50, productPrice.get().amount());
     }
 
     @Test
@@ -53,9 +50,9 @@ public class FindProductPriceFromDateShould {
         String brandCode = "brandCode";
         Instant date = Instant.parse("2020-06-14T00:00:00Z");
 
-        ProductPriceReadModel productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
+        Optional<ProductPriceResponseDto> productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
 
-        assertEquals(null, productPrice);
+        assertEquals(Optional.empty(), productPrice);
     }
 
     @Test
@@ -68,7 +65,7 @@ public class FindProductPriceFromDateShould {
                 new ProductPriceId(UUID.randomUUID().toString()),
                 new ProductCode(productCode),
                 new BrandCode(brandCode),
-                new RangeDateTime(LocalDateTime.of(2020, 6, 14, 0, 0, 0), LocalDateTime.of(2020, 12, 31, 23, 59, 59)),
+                new RangeDateTime(Instant.parse("2020-06-14T00:00:00Z"), Instant.parse("2020-12-31T23:59:59Z")),
                 new Price(35.50, "EUR"),
                 new Priority(0)
         ));
@@ -82,8 +79,8 @@ public class FindProductPriceFromDateShould {
                 new Priority(1)
         ));
 
-        ProductPriceReadModel productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
+        Optional<ProductPriceResponseDto> productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
 
-        assertEquals(25.45, productPrice.amount());
+        assertEquals(25.45, productPrice.get().amount());
     }
 }
