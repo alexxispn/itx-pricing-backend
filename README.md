@@ -102,7 +102,8 @@ En `pricing` gestionamos todo lo relacionado con la fijación de precios en nues
 - **Value Objects**: Utilizados para evitar el uso de tipos primitivos y proporcionar una agrupación semántica de datos.
   Incluyen `ProductPriceId`, `ProductCode`, `BrandCode`, `RangeDateTime`, `Price`, y `Priority`, cada uno encapsulando
   comportamientos específicos y posibles validaciones.
-- **Interfaces**: Definiciones abstractas como `ProductPriceRepository`, que establecen contratos para la persistencia de
+- **Interfaces**: Definiciones abstractas como `ProductPriceRepository`, que establecen contratos para la persistencia
+  de
   precios de productos. Esto permite que las implementaciones concretas se inyecten en el caso de uso sin acoplar el
   dominio a una tecnología específica.
 
@@ -125,10 +126,10 @@ En `pricing` gestionamos todo lo relacionado con la fijación de precios en nues
 
 ### TDD Outside-in y Honourable Retreat
 
-En este proyecto, hemos seguido un enfoque de TDD Outside-in, comenzando con la prueba de aceptación final y trabajando
+En este proyecto, he seguido un enfoque de TDD Outside-in, comenzando con la prueba de aceptación final y trabajando
 hacia abajo para implementar las pruebas unitarias y las clases de dominio necesarias. Este enfoque nos permite
 desarrollar de manera incremental y centrarnos en la funcionalidad requerida, evitando la implementación de código
-innecesario. Además, hemos aplicado la técnica de Honourable Retreat, que consiste en realizar commits de manera
+innecesario. Además, he aplicado la técnica de Honourable Retreat, que consiste en realizar commits de manera
 frecuente para poder volver al último commit en caso de necesitarlo.
 
 - **Prueba de Aceptación Final**: Utilizamos esta prueba como un faro, orientando todas las etapas del desarrollo y
