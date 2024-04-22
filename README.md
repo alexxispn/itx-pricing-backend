@@ -97,20 +97,20 @@ En `pricing` gestionamos todo lo relacionado con la fijación de precios en nues
 
 ##### Capa de Dominio:
 
-- **Aggregate Root**: `ProductPrice` actúa como el núcleo central donde se encapsula toda la lógica y el comportamiento
-  esencial del dominio.
-- **Value Objects**: Utilizados para evitar el uso de tipos primitivos y proporcionar una agrupación semántica que
-  mejora la claridad y consistencia del dominio.
+- **Aggregate Root**: `ProductPrice` actúa como la raíz del agregado, encapsulando la lógica de negocio y sirviendo como
+  punto de entrada para las operaciones relacionadas con los precios de los productos.
+- **Value Objects**: Utilizados para evitar el uso de tipos primitivos y proporcionar una agrupación semántica de datos.
   Incluyen `ProductPriceId`, `ProductCode`, `BrandCode`, `RangeDateTime`, `Price`, y `Priority`, cada uno encapsulando
-  comportamientos específicos y validaciones.
-- **Interfaces**: Definiciones abstractas como `ProductPriceRepository`, que establecen el contrato para las operaciones
-  de persistencia, asegurando así una abstracción adecuada y la separación de la lógica de acceso a datos.
+  comportamientos específicos y posibles validaciones.
+- **Interfaces**: Definiciones abstractas como `ProductPriceRepository`, que establecen contratos para la persistencia de
+  precios de productos. Esto permite que las implementaciones concretas se inyecten en el caso de uso sin acoplar el
+  dominio a una tecnología específica.
 
 ##### Capa de Aplicación:
 
 - **Casos de Uso**: `FindProductPriceFromDate` encapsula la lógica de negocio para recuperar el precio de un producto en
-  una fecha específica. Este caso de uso se encarga de orquestar la interacción entre el dominio y la infraestructura,
-  asegurando que se cumplan las reglas de negocio y se mantenga la coherencia del dominio.
+  una fecha específica. Al ser un caso de uso, se enfoca en la lógica de negocio y delega la persistencia a través de
+  `ProductPriceRepository`.
 
 ##### Capa de Infraestructura:
 
@@ -119,19 +119,12 @@ En `pricing` gestionamos todo lo relacionado con la fijación de precios en nues
   preocupaciones.
 - **Persistencia**: Implementaciones de `ProductPriceRepository` tales como `H2ProductPriceRepository` para las
   pruebas e2e y `InMemoryProductPriceRepository` para las pruebas unitarias de nuestro caso de uso. Esto se ha hecho así
-  para demostrar la flexibilidad y el desacoplamiento del dominio frente a la infraestructura técnica.
+  para demostrar la flexibilidad de la arquitectura y la facilidad de intercambiar implementaciones de repositorios.
 
 ## Técnicas
 
 ### TDD Outside-in y Honourable Retreat
 
-[//]: # (En este proyecto, he buscado seguir un enfoque de TDD Outside-in para que la prueba de aceptación final me fuera)
-
-[//]: # (guiando a la implementación completa. Esto lo he combinado con una técnica de refactoring llamada Honourable Retreat.)
-
-[//]: # (Buscando realizar commits de manera frecuente para poder volver al último commit en caso de necesitarlo. Facilitando el)
-
-[//]: # (no tener que debuggear.)
 En este proyecto, hemos seguido un enfoque de TDD Outside-in, comenzando con la prueba de aceptación final y trabajando
 hacia abajo para implementar las pruebas unitarias y las clases de dominio necesarias. Este enfoque nos permite
 desarrollar de manera incremental y centrarnos en la funcionalidad requerida, evitando la implementación de código
@@ -184,3 +177,9 @@ docker compose up
 ```
 ./mvnw spring-boot:run
 ```
+
+Podemos conectarnos a la base de datos H2 en `http://localhost:8080/h2-console` con las siguientes credenciales:
+
+- **JDBC URL**: `jdbc:h2:mem:pricing`
+- **User Name**: `sa`
+- **Password**: `password`
