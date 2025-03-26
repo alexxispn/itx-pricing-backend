@@ -8,7 +8,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ProductPriceShould {
+public class ProductPriceTest {
 
     @Test
     public void match_product_code_brand_code_and_date() {

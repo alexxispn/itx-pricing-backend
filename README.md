@@ -181,6 +181,6 @@ docker compose up
 
 Podemos conectarnos a la base de datos H2 en `http://localhost:8080/h2-console` con las siguientes credenciales:
 
-- **JDBC URL**: `jdbc:h2:mem:pricing`
+- **JDBC URL**: `jdbc:h2:mem:pricingdb`
 - **User Name**: `sa`
 - **Password**: `password`
