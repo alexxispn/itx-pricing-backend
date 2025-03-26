@@ -23,9 +23,5 @@ public class InMemoryProductPriceRepository implements ProductPriceRepository {
                 .filter(productPrice -> productPrice.matches(productCode, brandCode, date))
                 .toList();
     }
-
-    public void save(ProductPrice productPrice) {
-        productPrices.add(productPrice);
-    }
 }
 
