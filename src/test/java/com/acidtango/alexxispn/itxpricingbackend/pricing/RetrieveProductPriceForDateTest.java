@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RetrieveProductPriceForDateShould {
+public class RetrieveProductPriceForDateTest {
     @LocalServerPort
     private int port;
 
@@ -29,12 +29,12 @@ public class RetrieveProductPriceForDateShould {
                 .getBody()
                 .as(ProductPriceResponseDto.class);
 
-        assertEquals(productPrice.productCode(), productCode);
-        assertEquals(productPrice.brandCode(), brandCode);
+        assertEquals(productCode, productPrice.productCode());
+        assertEquals(brandCode, productPrice.brandCode());
         assertEquals(productPrice.fromDateTime(), Instant.parse("2020-06-14T00:00:00Z"));
         assertEquals(productPrice.toDateTime(), Instant.parse("2020-12-31T23:59:59Z"));
-        assertEquals(productPrice.amount(), 35.5);
-        assertEquals(productPrice.currencyCode(), "EUR");
+        assertEquals(35.5, productPrice.amount());
+        assertEquals("EUR", productPrice.currencyCode());
     }
 
     @Test
@@ -48,15 +48,18 @@ public class RetrieveProductPriceForDateShould {
                 .when()
                 .queryParam("dateTime", requestDateTime)
                 .get("/brand/{brandCode}/product/{productCode}/price", brandCode, productCode)
-                .getBody()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
                 .as(ProductPriceResponseDto.class);
 
-        assertEquals(productPrice.productCode(), productCode);
-        assertEquals(productPrice.brandCode(), brandCode);
+        assertEquals(productCode, productPrice.productCode());
+        assertEquals(brandCode, productPrice.brandCode());
         assertEquals(productPrice.fromDateTime(), Instant.parse("2020-06-14T15:00:00Z"));
         assertEquals(productPrice.toDateTime(), Instant.parse("2020-06-14T18:30:00Z"));
-        assertEquals(productPrice.amount(), 25.45);
-        assertEquals(productPrice.currencyCode(), "EUR");
+        assertEquals(25.45, productPrice.amount());
+        assertEquals("EUR", productPrice.currencyCode());
     }
 
     @Test
@@ -73,12 +76,12 @@ public class RetrieveProductPriceForDateShould {
                 .getBody()
                 .as(ProductPriceResponseDto.class);
 
-        assertEquals(productPrice.productCode(), productCode);
-        assertEquals(productPrice.brandCode(), brandCode);
+        assertEquals(productCode, productPrice.productCode());
+        assertEquals(brandCode, productPrice.brandCode());
         assertEquals(productPrice.fromDateTime(), Instant.parse("2020-06-14T00:00:00Z"));
         assertEquals(productPrice.toDateTime(), Instant.parse("2020-12-31T23:59:59Z"));
-        assertEquals(productPrice.amount(), 35.5);
-        assertEquals(productPrice.currencyCode(), "EUR");
+        assertEquals(35.5, productPrice.amount());
+        assertEquals("EUR", productPrice.currencyCode());
     }
 
     @Test
@@ -95,12 +98,12 @@ public class RetrieveProductPriceForDateShould {
                 .getBody()
                 .as(ProductPriceResponseDto.class);
 
-        assertEquals(productPrice.productCode(), productCode);
-        assertEquals(productPrice.brandCode(), brandCode);
+        assertEquals(productCode, productPrice.productCode());
+        assertEquals(brandCode, productPrice.brandCode());
         assertEquals(productPrice.fromDateTime(), Instant.parse("2020-06-15T00:00:00Z"));
         assertEquals(productPrice.toDateTime(), Instant.parse("2020-06-15T11:00:00Z"));
-        assertEquals(productPrice.amount(), 30.5);
-        assertEquals(productPrice.currencyCode(), "EUR");
+        assertEquals(30.5, productPrice.amount());
+        assertEquals("EUR", productPrice.currencyCode());
     }
 
     @Test
@@ -118,11 +121,27 @@ public class RetrieveProductPriceForDateShould {
                 .getBody()
                 .as(ProductPriceResponseDto.class);
 
-        assertEquals(productPrice.productCode(), productCode);
-        assertEquals(productPrice.brandCode(), brandCode);
+        assertEquals(productCode, productPrice.productCode());
+        assertEquals(brandCode, productPrice.brandCode());
         assertEquals(productPrice.fromDateTime(), Instant.parse("2020-06-15T16:00:00Z"));
         assertEquals(productPrice.toDateTime(), Instant.parse("2020-12-31T23:59:59Z"));
-        assertEquals(productPrice.amount(), 38.95);
-        assertEquals(productPrice.currencyCode(), "EUR");
+        assertEquals(38.95, productPrice.amount());
+        assertEquals("EUR", productPrice.currencyCode());
+    }
+
+    @Test
+    public void return_404_when_product_price_not_found() {
+        String productCode = "nonexistent";
+        String brandCode = "1";
+        String requestDateTime = Instant.parse("2020-06-14T10:00:00Z").toString();
+
+        given()
+                .port(port)
+                .when()
+                .queryParam("dateTime", requestDateTime)
+                .get("/brand/{brandCode}/product/{productCode}/price", brandCode, productCode)
+                .then()
+                .statusCode(404);
+
     }
 }
