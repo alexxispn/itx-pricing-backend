@@ -142,7 +142,6 @@ public class RetrieveProductPriceForDateTest {
                 .get("/brand/{brandCode}/product/{productCode}/price", brandCode, productCode)
                 .then()
                 .statusCode(404);
-
     }
 
     @Test

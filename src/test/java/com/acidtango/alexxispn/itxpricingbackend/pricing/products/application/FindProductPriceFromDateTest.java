@@ -3,20 +3,19 @@ package com.acidtango.alexxispn.itxpricingbackend.pricing.products.application;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.*;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.controllers.dtos.ProductPriceResponseDto;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.InMemoryProductPriceRepository;
+import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.errors.ResourceNotFoundError;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
-import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FindProductPriceFromDateTest {
+
     private ProductPriceFromDateFinder findProductPriceFromDate;
-
     private InMemoryProductPriceRepository productPriceRepository;
-
 
     @BeforeEach
     public void setUp() {
@@ -39,9 +38,9 @@ public class FindProductPriceFromDateTest {
                 new Priority(0)
         ));
 
-        Optional<ProductPriceResponseDto> productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
+        ProductPriceResponseDto productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
 
-        assertEquals(35.50, productPrice.get().amount());
+        assertEquals(35.50, productPrice.amount());
     }
 
     @Test
@@ -50,9 +49,9 @@ public class FindProductPriceFromDateTest {
         String brandCode = "brandCode";
         Instant date = Instant.parse("2020-06-14T00:00:00Z");
 
-        Optional<ProductPriceResponseDto> productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
-
-        assertEquals(Optional.empty(), productPrice);
+        assertThrows(ResourceNotFoundError.class, () ->
+                findProductPriceFromDate.execute(brandCode, productCode, date)
+        );
     }
 
     @Test
@@ -79,8 +78,7 @@ public class FindProductPriceFromDateTest {
                 new Priority(1)
         ));
 
-        Optional<ProductPriceResponseDto> productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
-
-        assertEquals(25.45, productPrice.get().amount());
+        ProductPriceResponseDto productPrice = findProductPriceFromDate.execute(brandCode, productCode, date);
+        assertEquals(25.45, productPrice.amount());
     }
 }
