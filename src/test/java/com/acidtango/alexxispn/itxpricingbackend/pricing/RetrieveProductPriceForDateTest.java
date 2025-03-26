@@ -144,4 +144,17 @@ public class RetrieveProductPriceForDateTest {
                 .statusCode(404);
 
     }
+
+    @Test
+    public void return_400_when_date_time_is_not_provided() {
+        String productCode = "35455";
+        String brandCode = "1";
+
+        given()
+                .port(port)
+                .when()
+                .get("/brand/{brandCode}/product/{productCode}/price", brandCode, productCode)
+                .then()
+                .statusCode(400);
+    }
 }
