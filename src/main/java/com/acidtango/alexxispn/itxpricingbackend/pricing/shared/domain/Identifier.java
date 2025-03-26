@@ -1,5 +1,7 @@
 package com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain;
 
+import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.errors.InvalidArgumentError;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -37,7 +39,11 @@ public abstract class Identifier implements Serializable {
         return Objects.hash(value);
     }
 
-    private void ensureValidUuid(String value) throws IllegalArgumentException {
-        UUID.fromString(value);
+    private void ensureValidUuid(String value) {
+        try {
+            UUID.fromString(value);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidArgumentError("Invalid UUID format");
+        }
     }
 }
