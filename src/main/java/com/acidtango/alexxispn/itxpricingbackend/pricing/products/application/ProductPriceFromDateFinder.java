@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FindProductPriceFromDate extends UseCase {
+public class ProductPriceFromDateFinder extends UseCase {
 
     private final ProductPriceRepository repository;
 
-    public FindProductPriceFromDate(ProductPriceRepository repository) {
+    public ProductPriceFromDateFinder(ProductPriceRepository repository) {
         this.repository = repository;
     }
 

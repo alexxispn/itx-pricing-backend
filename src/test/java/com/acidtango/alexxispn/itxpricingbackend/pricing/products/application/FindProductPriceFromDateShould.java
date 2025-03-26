@@ -13,7 +13,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FindProductPriceFromDateShould {
-    private FindProductPriceFromDate findProductPriceFromDate;
+    private ProductPriceFromDateFinder findProductPriceFromDate;
 
     private InMemoryProductPriceRepository productPriceRepository;
 
@@ -21,7 +21,7 @@ public class FindProductPriceFromDateShould {
     @BeforeEach
     public void setUp() {
         productPriceRepository = new InMemoryProductPriceRepository();
-        findProductPriceFromDate = new FindProductPriceFromDate(productPriceRepository);
+        findProductPriceFromDate = new ProductPriceFromDateFinder(productPriceRepository);
     }
 
     @Test
