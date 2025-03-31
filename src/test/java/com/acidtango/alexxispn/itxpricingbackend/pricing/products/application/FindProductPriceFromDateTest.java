@@ -9,6 +9,7 @@ import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.errors.Pr
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,9 +42,7 @@ public class FindProductPriceFromDateTest {
     public void find_a_product_price() {
         ProductPriceFromDateFinder finder = new ProductPriceFromDateFinder(
                 new AlwaysMatchesProductPriceRepository(
-                        new ProductPrice[]{
-                                dummyProductPrice
-                        }
+                        List.of(dummyProductPrice)
                 )
         );
 
@@ -65,10 +64,7 @@ public class FindProductPriceFromDateTest {
         );
         ProductPriceFromDateFinder finder = new ProductPriceFromDateFinder(
                 new AlwaysMatchesProductPriceRepository(
-                        new ProductPrice[]{
-                                dummyProductPrice,
-                                higherPriorityProductPrice
-                        }
+                        List.of(dummyProductPrice, higherPriorityProductPrice)
                 )
         );
 

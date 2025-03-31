@@ -41,19 +41,4 @@ public class ProductPriceEntity {
         return ProductPrice.fromPrimitives(primitives);
     }
 
-    public static ProductPriceEntity fromDomain(ProductPrice productPrice) {
-        ProductPricePrimitives primitives = productPrice.toPrimitives();
-        ProductPriceEntity entity = new ProductPriceEntity();
-
-        entity.id = primitives.id();
-        entity.productCode = primitives.productCode();
-        entity.brandCode = primitives.brandCode();
-        entity.startDate = primitives.fromDateTime();
-        entity.endDate = primitives.toDateTime();
-        entity.price = primitives.amount();
-        entity.currency = primitives.currencyCode();
-        entity.priority = primitives.priority();
-
-        return entity;
-    }
 }

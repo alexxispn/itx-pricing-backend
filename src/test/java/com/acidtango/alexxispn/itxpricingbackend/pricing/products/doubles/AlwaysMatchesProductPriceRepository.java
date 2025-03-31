@@ -7,14 +7,14 @@ import java.time.Instant;
 import java.util.List;
 
 public class AlwaysMatchesProductPriceRepository implements ProductPriceRepository {
-    private final ProductPrice[] productPrices;
+    private final List<ProductPrice> productPrices;
 
-    public AlwaysMatchesProductPriceRepository(ProductPrice[] productPrices) {
+    public AlwaysMatchesProductPriceRepository(List<ProductPrice> productPrices) {
         this.productPrices = productPrices;
     }
 
     @Override
     public List<ProductPrice> find(String productCode, String brandCode, Instant date) {
-        return List.of(productPrices);
+        return productPrices;
     }
 }
