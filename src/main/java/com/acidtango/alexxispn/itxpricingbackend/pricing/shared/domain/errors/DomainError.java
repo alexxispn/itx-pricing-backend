@@ -1,7 +1,7 @@
 package com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.errors;
 
 public sealed abstract class DomainError extends RuntimeException
-        permits InvalidArgumentError, ResourceNotFoundError {
+        permits InvalidArgumentError, ProductPriceNotFoundError {
 
     private final DomainErrorCode code;
 

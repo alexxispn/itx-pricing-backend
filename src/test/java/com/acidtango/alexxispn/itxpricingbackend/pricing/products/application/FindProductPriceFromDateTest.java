@@ -5,6 +5,7 @@ import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.AlwaysMatchesProductPriceRepository;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.NoMatchProductPriceRepository;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.errors.ResourceNotFoundError;
+import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.errors.ProductPriceNotFoundError;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
@@ -31,7 +32,7 @@ public class FindProductPriceFromDateTest {
                 new NoMatchProductPriceRepository()
         );
 
-        assertThrows(ResourceNotFoundError.class, () ->
+        assertThrows(ProductPriceNotFoundError.class, () ->
                 finder.execute(brandCode, productCode, date)
         );
     }

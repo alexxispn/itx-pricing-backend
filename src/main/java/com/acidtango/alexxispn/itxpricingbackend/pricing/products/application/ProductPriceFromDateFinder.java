@@ -3,7 +3,7 @@ package com.acidtango.alexxispn.itxpricingbackend.pricing.products.application;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.ProductPrice;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.ProductPriceRepository;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.controllers.dtos.ProductPriceResponseDto;
-import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.errors.ResourceNotFoundError;
+import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.errors.ProductPriceNotFoundError;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.application.UseCase;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +24,20 @@ public class ProductPriceFromDateFinder extends UseCase {
         List<ProductPrice> productPrices = repository.find(productCode, brandCode, dateTime);
         ProductPrice productPrice = productPrices.stream()
                 .max(Comparator.comparingInt(ProductPrice::priority))
-                .orElseThrow(() -> new ResourceNotFoundError("No se encontró el precio para el producto " + productCode + " y marca " + brandCode +
-                        " en la fecha especificada."));
+                .orElseThrow(() -> new ProductPriceNotFoundError(productCode, brandCode));
+        return mapToDto(productPrice);
+    }
+
+    private ProductPriceResponseDto mapToDto(ProductPrice productPrice) {
+        var primitives = productPrice.toPrimitives();
         return new ProductPriceResponseDto(
-                productPrice.toPrimitives().productCode(),
-                productPrice.toPrimitives().brandCode(),
-                productPrice.toPrimitives().fromDateTime(),
-                productPrice.toPrimitives().toDateTime(),
-                productPrice.toPrimitives().amount(),
-                productPrice.toPrimitives().currencyCode()
+                primitives.productCode(),
+                primitives.brandCode(),
+                primitives.fromDateTime(),
+                primitives.toDateTime(),
+                primitives.amount(),
+                primitives.currencyCode()
         );
     }
 }
+
