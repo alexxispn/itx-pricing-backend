@@ -1,4 +1,4 @@
-package com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository;
+package com.acidtango.alexxispn.itxpricingbackend.pricing.products.doubles;
 
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.ProductPrice;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.ProductPriceRepository;

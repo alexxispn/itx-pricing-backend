@@ -2,9 +2,8 @@ package com.acidtango.alexxispn.itxpricingbackend.pricing.products.application;
 
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.domain.*;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.controllers.dtos.ProductPriceResponseDto;
-import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.AlwaysMatchesProductPriceRepository;
-import com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository.NoMatchProductPriceRepository;
-import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.errors.ResourceNotFoundError;
+import com.acidtango.alexxispn.itxpricingbackend.pricing.products.doubles.AlwaysMatchesProductPriceRepository;
+import com.acidtango.alexxispn.itxpricingbackend.pricing.products.doubles.NoMatchProductPriceRepository;
 import com.acidtango.alexxispn.itxpricingbackend.pricing.shared.domain.errors.ProductPriceNotFoundError;
 import org.junit.jupiter.api.Test;
 
