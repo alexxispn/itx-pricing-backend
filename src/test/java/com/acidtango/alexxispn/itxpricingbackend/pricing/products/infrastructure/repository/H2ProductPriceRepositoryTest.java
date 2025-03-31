@@ -1,19 +1,20 @@
 package com.acidtango.alexxispn.itxpricingbackend.pricing.products.infrastructure.repository;
 
+import com.acidtango.alexxispn.itxpricingbackend.pricing.products.doubles.SpyJpaProductPriceRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class H2ProductPriceRepositoryTest {
-    private JpaProductPriceRepository jpaProductPriceRepository;
+    private SpyJpaProductPriceRepository jpaProductPriceRepository;
     private H2ProductPriceRepository h2ProductPriceRepository;
 
     @BeforeEach
     void setUp() {
-        jpaProductPriceRepository = mock(JpaProductPriceRepository.class);
+        jpaProductPriceRepository = new SpyJpaProductPriceRepository();
         h2ProductPriceRepository = new H2ProductPriceRepository(jpaProductPriceRepository);
     }
 
@@ -25,6 +26,9 @@ public class H2ProductPriceRepositoryTest {
 
         h2ProductPriceRepository.find(productCode, brandCode, date);
 
-        verify(jpaProductPriceRepository, times(1)).findByProductCodeAndBrandCodeAndStartDateLessThanEqualAndEndDateGreaterThanEqual(productCode, brandCode, date, date);
+        assertEquals(productCode, jpaProductPriceRepository.getReceivedProductCode());
+        assertEquals(brandCode, jpaProductPriceRepository.getReceivedBrandCode());
+        assertEquals(date, jpaProductPriceRepository.getReceivedStartDate());
+        assertEquals(date, jpaProductPriceRepository.getReceivedEndDate());
     }
 }
